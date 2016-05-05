@@ -49,6 +49,13 @@ describe('User Model', function() {
     });
   });
 
+  describe('#role', function() {
+    if('should fail when saving with an unknown role', function() {
+      user.role = 'kahuna';
+      return user.save().should.be.rejected;
+    });
+  });
+
   describe('#password', function() {
     beforeEach(function() {
       return user.save();
