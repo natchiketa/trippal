@@ -1,5 +1,6 @@
 deployment:
   prod:
     branch: master
-    heroku:
-      appname: nat-trippal
+    commands:
+      - gulp build
+      - gulp buildcontrol:heroku
