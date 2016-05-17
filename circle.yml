@@ -5,6 +5,7 @@ dependencies:
   cache_directories:
     - "client/bower_components"
   post:
+    - npm install -g bower
     - bower install
 deployment:
   prod:
