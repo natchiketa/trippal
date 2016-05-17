@@ -15,6 +15,6 @@ deployment:
       - git config --global user.name "$(git show -s --format="%aN" $CIRCLE_SHA1)"
       - gulp build
       - cd dist
-      - heroku git:remote -a nat-trippal
+      - git remote add heroku git@heroku.com:nat-trippal.git
       - cd ..
       - gulp buildcontrol:heroku
