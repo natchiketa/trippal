@@ -522,14 +522,16 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant', 'bu
 });
 
 gulp.task('html', function() {
-    return gulp.src(`.tmp/{app,components}/**/*.html`)
+    return gulp.src('.tmp/{app,components}/**/*.html')
+        .pipe(plugins.debug({title: '$templateCaching:'}))
         .pipe(plugins.angularTemplatecache({
             module: 'trippalApp'
         }))
         .pipe(gulp.dest('.tmp'));
 });
 gulp.task('jade', function() {
-  gulp.src(paths.client.views)
+  return gulp.src(paths.client.views)
+    .pipe(plugins.debug({title: 'jade-templates:'}))
     .pipe(plugins.jade())
     .pipe(gulp.dest('.tmp'));
 });
