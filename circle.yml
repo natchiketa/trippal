@@ -11,5 +11,7 @@ deployment:
   prod:
     branch: master
     commands:
+      - git config --global user.email \"$(git show -s --format="%aE" $CIRCLE_SHA1)\""
+      - git config --global user.name \"$(git show -s --format="%aN" $CIRCLE_SHA1)\""
       - gulp build
       - gulp buildcontrol:heroku
