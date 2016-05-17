@@ -15,4 +15,4 @@ deployment:
       - git config --global user.name "$(git show -s --format="%aN" $CIRCLE_SHA1)"
       - gulp build
       - cd dist
-      - git push git@heroku.com:nat-trippal.git $CIRCLE_SHA1:refs/heads/master
+      - git push -f git@heroku.com:nat-trippal.git $CIRCLE_SHA1:refs/heads/master
