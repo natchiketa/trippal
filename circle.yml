@@ -2,7 +2,9 @@ machine:
   node:
     version: 6.0.0
 dependencies:
-  pre:
+  cache_directories:
+    - "client/bower_components"
+  post:
     - bower install
 deployment:
   prod:
