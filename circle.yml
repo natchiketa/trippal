@@ -1,6 +1,9 @@
 machine:
   node:
     version: 6.0.0
+dependencies:
+  pre:
+    - bower install
 deployment:
   prod:
     branch: master
