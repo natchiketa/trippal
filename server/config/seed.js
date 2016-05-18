@@ -5,6 +5,8 @@
 
 'use strict';
 import sqldb from '../sqldb';
+import moment from 'moment';
+
 var Trip = sqldb.Trip;
 var User = sqldb.User;
 
@@ -40,12 +42,40 @@ User.sync()
         })
         .then(() => {
           User.findOne({where: {name: 'Test User'} }).then(user => {
-            var trip = Trip.create({
-              destination: 'Barcelona',
-              UserId: user._id
-            });
+            var trips = Trip.bulkCreate([
+              {
+                destination: 'Barcelona',
+                start_date: moment().toDate(),
+                end_date: moment().add(8, 'days').toDate(),
+                UserId: user._id
+              },
+              {
+                destination: 'Madrid',
+                start_date: moment().add(10, 'days').toDate(),
+                end_date: moment().add(12, 'days').toDate(),
+                UserId: user._id
+              },
+              {
+                destination: 'Toledo',
+                start_date: moment().add(13, 'days').toDate(),
+                end_date: moment().add(15, 'days').toDate(),
+                UserId: user._id
+              },
+              {
+                destination: 'Segovia',
+                start_date: moment().add(16, 'days').toDate(),
+                end_date: moment().add(17, 'days').toDate(),
+                UserId: user._id
+              },
+              {
+                destination: 'Lisbon',
+                start_date: moment().add(18, 'days').toDate(),
+                end_date: moment().add(25, 'days').toDate(),
+                UserId: user._id
+              },
+            ]);
 
-            return trip;
+            return trips;
           })
         });
     });

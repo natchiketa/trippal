@@ -1,1 +1,105 @@
-div This is the trips view.
+.container
+  .row
+    .col-lg-12
+      table.table.table-striped
+        thead
+          tr
+            th #
+            td(ng-if="$ctrl.isAdmin()") User
+            th Destination
+            th Start Date
+            th End Date
+            th
+        tbody
+          tr(ng-repeat="trip in $ctrl.trips")
+            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip._id")
+            td(ng-if="!$ctrl.editingTrip(trip._id) && $ctrl.isAdmin()" ng-bind="$ctrl.getUser(trip.UserId).name")
+            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.destination")
+            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.start_date | date:mediumDate")
+            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.end_date | date:mediumDate")
+            td.triplist__actions(ng-if="!$ctrl.editingTrip(trip._id)")
+              button.btn.btn-default.btn-sm(type='button')
+                span.glyphicon.glyphicon-comment(aria-hidden='true')
+
+              button.btn.btn-default.btn-sm(
+                type='button'
+                ng-click="$ctrl.editTrip(trip)"
+              )
+                span.glyphicon.glyphicon-edit(aria-hidden='true')
+
+              button.btn.btn-default.btn-sm(
+                type='button'
+                ng-click="$ctrl.deleteTrip(trip)"
+              )
+                span.glyphicon.glyphicon-trash(aria-hidden='true')
+
+            td(ng-if="$ctrl.editingTrip(trip._id)", colspan="5")
+              .row
+                .col-lg-12
+                  form.inline
+                    .form-group
+                      label(for='new-trip-destination') Destination
+                      input#new-trip-destination.form-control(
+                        type='text'
+                        placeholder='Miami, Berlin, etc.'
+                        ng-model="$ctrl.activeTrip.destination"
+                      )
+
+                    .form-group
+                      label(for='new-trip-start-date') Start Date
+                      input#new-trip-start-date.form-control(
+                        type='date'
+                        ng-model="$ctrl.activeTrip.start_date"
+                        min="{{::$ctrl.moment().toDate()}}"
+                      )
+
+                    .form-group
+                      label(for='new-trip-end-date') End Date
+                      input#new-trip-end-date.form-control(
+                        type='date'
+                        ng-model="$ctrl.activeTrip.end_date"
+                        min="{{$ctrl.activeTrip.start_date | date:'yyyy-MM-dd'}}"
+                      )
+                    .form-group
+                      label(for='new-trip-comment') Comment
+                      input#new-trip-comment.form-control(
+                        type='text'
+                        ng-model="$ctrl.activeTrip.comment"
+                      )
+                    button.btn.btn-default(ng-click="$ctrl.updateTrip()")
+                      span.glyphicon.glyphicon-ok(aria-hidden='true')
+
+  .row
+    .col-lg-12
+      form
+        .form-group
+          label(for='new-trip-destination') Destination
+          input#new-trip-destination.form-control(
+            type='text'
+            placeholder='Miami, Berlin, etc.'
+            ng-model="$ctrl.newTrip.destination"
+            required
+          )
+
+        .form-group
+          label(for='new-trip-start-date') Start Date
+          input#new-trip-start-date.form-control(
+            type='date'
+            ng-model="$ctrl.newTrip.start_date"
+            min="{{::$ctrl.moment().toDate()}}"
+          )
+
+        .form-group
+          label(for='new-trip-end-date') End Date
+          input#new-trip-end-date.form-control(
+            type='date'
+            ng-model="$ctrl.newTrip.end_date"
+            min="{{$ctrl.newTrip.start_date | date:'yyyy-MM-dd'}}"
+          )
+        .form-group
+          label(for='new-trip-comment') Comment
+          input#new-trip-comment.form-control(
+            type='text'
+            ng-model="$ctrl.newTrip.comment"
+          )
+        button.btn.btn-default(ng-click="$ctrl.addTrip()") Add Trip

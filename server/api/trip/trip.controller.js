@@ -90,7 +90,10 @@ export function show(req, res) {
 
 // Creates a new Trip in the DB
 export function create(req, res) {
-  return Trip.create(req.body)
+  var trip = req.body;
+  trip.UserId = req.user._id;
+
+  return Trip.create(trip)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }

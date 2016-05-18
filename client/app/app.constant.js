@@ -4,8 +4,8 @@
 .constant("appConfig", {
 	"userRoles": [
 		"guest",
-		"user",
 		"manager",
+		"user",
 		"admin"
 	]
 })
