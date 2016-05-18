@@ -1,26 +1,37 @@
 .container
   .row
     .col-lg-12
+      form.form-inline
+        .form-group.triplist-filter
+          label(for='filter-destination') Destination
+          input#filter-destination.form-control(
+            type='text'
+            placeholder='Trips w/dest containing...'
+            ng-model="destFilter"
+            style="margin-left: 10px;"
+          )
+
+  .row
+    .col-lg-12
       table.table.table-striped
         thead
           tr
-            th #
+            th Days Until
             td(ng-if="$ctrl.isAdmin()") User
             th Destination
             th Start Date
             th End Date
+            th Comment
             th
         tbody
-          tr(ng-repeat="trip in $ctrl.trips")
-            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip._id")
+          tr(ng-repeat="trip in $ctrl.trips | filter:destFilter")
+            td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="$ctrl.daysUntil(trip)")
             td(ng-if="!$ctrl.editingTrip(trip._id) && $ctrl.isAdmin()" ng-bind="$ctrl.getUser(trip.UserId).name")
             td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.destination")
             td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.start_date | date:mediumDate")
             td(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.end_date | date:mediumDate")
+            td.triplist__item__comment(ng-if="!$ctrl.editingTrip(trip._id)" ng-bind="trip.comment")
             td.triplist__actions(ng-if="!$ctrl.editingTrip(trip._id)")
-              button.btn.btn-default.btn-sm(type='button')
-                span.glyphicon.glyphicon-comment(aria-hidden='true')
-
               button.btn.btn-default.btn-sm(
                 type='button'
                 ng-click="$ctrl.editTrip(trip)"

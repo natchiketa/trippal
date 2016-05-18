@@ -6,5 +6,5 @@ angular.module('trippalApp')
       .state('trips', {
         url: '/trips',
         template: '<trips></trips>'
-      });
+      })
   });

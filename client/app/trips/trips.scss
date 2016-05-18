@@ -1,3 +1,5 @@
+
+
 .triplist__actions {
   display: flex;
   justify-content: flex-end;
@@ -5,5 +7,9 @@
   button + button {
     margin-left: 0.5em;
   }
+}
+
+.triplist__item__comment {
+  max-width: 30vw;
 }
 

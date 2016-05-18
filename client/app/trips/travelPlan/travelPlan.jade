@@ -1,0 +1,17 @@
+.container
+  .row
+    table.table.table-striped
+      thead
+        tr
+          th Destination
+          th Start Date
+          th End Date
+          th Comment
+          th
+      tbody
+        tr(ng-repeat="trip in $ctrl.trips")
+          td(ng-bind="trip.destination")
+          td(ng-bind="trip.start_date | date:mediumDate")
+          td(ng-bind="trip.end_date | date:mediumDate")
+          td.triplist__item__comment(ng-bind="trip.comment")
+

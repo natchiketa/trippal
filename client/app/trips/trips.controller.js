@@ -60,6 +60,16 @@ class TripsComponent {
 
     return this.activeTrip._id === tripId;
   }
+
+  daysUntil(trip) {
+    var start = moment(trip.start_date);
+
+    if(start.isBefore(moment())) {
+      return;
+    }
+
+    return moment().to(start);
+  }
 }
 
 function blankTrip() {

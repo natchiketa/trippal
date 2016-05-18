@@ -19,8 +19,16 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 /* inject:scss */
 @import 'admin/admin';
 @import 'main/main';
+@import 'trips/travelPlan/travelPlan';
 @import 'trips/trips';
 @import '../components/footer/footer';
 @import '../components/modal/modal';
 @import '../components/oauth-buttons/oauth-buttons';
 /* endinject */
+
+@media print {
+ /* All your print styles go here */
+ navbar, footer {
+   display: none !important;
+ }
+}
