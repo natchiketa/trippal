@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import {Trip} from '../../sqldb';
+import {User} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,9 +61,19 @@ function handleError(res, statusCode) {
 
 // Gets a list of Trips
 export function index(req, res) {
-  return Trip.findAll()
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  var user = req.user;
+  if(user.role === 'admin') {
+    return Trip.findAll()
+      .then(respondWithResult(res))
+      .catch(handleError(res));
+  }
+  else if(user.role === 'user') {
+    return Trip.findAll({
+      where: { UserId: user._id }
+    })
+      .then(respondWithResult(res))
+      .catch(handleError(res));
+  }
 }
 
 // Gets a single Trip from the DB

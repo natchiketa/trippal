@@ -18,4 +18,6 @@ db.Trip = db.sequelize.import('../api/trip/trip.model');
 db.Thing = db.sequelize.import('../api/thing/thing.model');
 db.User = db.sequelize.import('../api/user/user.model');
 
+db.Trip.belongsTo(db.User);
+
 module.exports = db;
